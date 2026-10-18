@@ -115,43 +115,8 @@
     }
     setTimeout(hideLoader, 8000); // dự phòng
 
-    // ========== CÀI ĐẶT PWA ==========
-    let deferredPrompt = null;
-    const installBtn = document.getElementById('install-banner');
-    const iosGuide = document.getElementById('ios-guide');
-
-    // Phát hiện iOS Safari
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-
-    // Nếu đã cài rồi thì không hiện gì cả
-    if (isStandalone) {
-      // đã chạy như app → không cần nút
-    } 
-    // iOS → hiện hướng dẫn
-    else if (isIOS) {
-      setTimeout(() => {
-        iosGuide.style.display = 'block';
-      }, 1500);
-    }
-
-    // Chrome / Edge / Android → bắt sự kiện beforeinstallprompt
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();               // chặn banner mặc định của Chrome
-      deferredPrompt = e;
-      installBtn.style.display = 'flex'; // hiện nút của mình
-    });
-
-    // Khi người dùng nhấn nút "Cài đặt ứng dụng"
-    installBtn.addEventListener('click', async () => {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        installBtn.style.display = 'none';
-      }
-      deferredPrompt = null;
-    });
+   
+    
 
     
   </script>
