@@ -199,7 +199,80 @@
     onload="hideLoader()">
   </iframe>
 
+  <!-- NÚT CÀI ĐẶT (Chrome / Android / Edge) -->
+  <button id="install-banner">
+    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+    Cài đặt ứng dụng
+  </button>
 
+  <!-- HƯỚNG DẪN CÀI TRÊN iOS (Safari) -->
+  <div id="ios-guide">
+    <h3>Cài đặt ứng dụng trên iPhone / iPad</h3>
+    <p>Nhấn nút <strong>Chia sẻ</strong> → chọn <strong>Thêm vào Màn hình chính</strong></p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">⬆️</div>
+        <span>Chia sẻ</span>
+      </div>
+      <div class="step">
+        <div class="step-icon">➕</div>
+        <span>Thêm vào<br>Màn hình chính</span>
+      </div>
+    </div>
+    <button onclick="document.getElementById('ios-guide').style.display='none'">Đã hiểu</button>
+  </div>
+
+  <script>
+    // ========== ẨN LOADER ==========
+    function hideLoader() {
+      const loader = document.getElementById('loader');
+      if (loader) loader.classList.add('hidden');
+    }
+    setTimeout(hideLoader, 8000); // dự phòng
+
+    // ========== CÀI ĐẶT PWA ==========
+    let deferredPrompt = null;
+    const installBtn = document.getElementById('install-banner');
+    const iosGuide = document.getElementById('ios-guide');
+
+    // Phát hiện iOS Safari
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+    // Nếu đã cài rồi thì không hiện gì cả
+    if (isStandalone) {
+      // đã chạy như app → không cần nút
+    } 
+    // iOS → hiện hướng dẫn
+    else if (isIOS) {
+      setTimeout(() => {
+        iosGuide.style.display = 'block';
+      }, 1500);
+    }
+
+    // Chrome / Edge / Android → bắt sự kiện beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();               // chặn banner mặc định của Chrome
+      deferredPrompt = e;
+      installBtn.style.display = 'flex'; // hiện nút của mình
+    });
+
+    // Khi người dùng nhấn nút "Cài đặt ứng dụng"
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        installBtn.style.display = 'none';
+      }
+      deferredPrompt = null;
+    });
+
+    // Sau khi cài thành công
+    window.addEventListener('appinstalled', () => {
+      installBtn.style.display = 'none';
+      deferredPrompt = null;
+    });
   </script>
 </body>
 </html>
