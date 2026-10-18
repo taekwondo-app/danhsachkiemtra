@@ -7,8 +7,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content=
-"Đăng ký danh sách ">  <title>Đăng ký danh sách kiểm tra</title>
- <link rel="icon" type="image/png" href="logo.png">
+"Đăng ký Danh sách ">  <title>Ứng dụng Đăng ký danh sách Kiểm tra thuộc CLB</title>
+  <link rel="icon" type="image/png" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
   <link rel="manifest" href="manifest.json">
   <style>
@@ -53,6 +53,27 @@
       color: #64748b;
       font-weight: 500;
     }
+
+    /* ĐẶT THÔNG TIN TÁC GIẢ NẰM Ở ĐÁY MÀN HÌNH LOADER */
+    .developer-info {
+      position: absolute;
+      bottom: 24px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      color: #94a3b8;
+      font-weight: 400;
+      padding: 0 10px;
+    }
+    .developer-info a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .developer-info a:hover {
+      text-decoration: underline;
+    }
     @keyframes spin { to { transform: rotate(360deg); } }
     #loader.hidden {
       opacity: 0;
@@ -66,18 +87,119 @@
       display: block;
     }
 
+    /* ========== NÚT CÀI ĐẶT ỨNG DỤNG ========== */
+    #install-banner {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e40af;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      box-shadow: 0 8px 25px rgba(30, 64, 175, 0.35);
+      display: none;               /* ẩn mặc định */
+      align-items: center;
+      gap: 10px;
+      z-index: 10000;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      white-space: nowrap;
+    }
+    #install-banner:hover {
+      background: #1e3a8a;
+      transform: translateX(-50%) translateY(-3px);
+      box-shadow: 0 12px 30px rgba(30, 64, 175, 0.45);
+    }
+    #install-banner svg {
+      width: 20px; height: 20px;
+      fill: currentColor;
+    }
 
+    /* Hướng dẫn cài trên iOS (Safari) */
+    #ios-guide {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: white;
+      padding: 20px;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -8px 30px rgba(0,0,0,0.12);
+      z-index: 10001;
+      display: none;
+      text-align: center;
+    }
+    #ios-guide h3 {
+      font-size: 17px;
+      margin-bottom: 12px;
+      color: #1e293b;
+    }
+    #ios-guide p {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    #ios-guide .steps {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    #ios-guide .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 13px;
+      color: #475569;
+    }
+    #ios-guide .step-icon {
+      width: 44px; height: 44px;
+      background: #f1f5f9;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+      font-size: 20px;
+    }
+    #ios-guide button {
+      background: #1e40af;
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
 
   <!-- LOADER -->
   <div id="loader">
     <img src="logo.png" alt="Logo" class="app-logo" onerror="this.style.display='none'">
     <div class="spinner"></div>
     <div class="loading-text">Đang tải dữ liệu...</div>
+
+    <!-- NẰM NỔI Ở ĐÁY MÀN HÌNH LOADER -->
+    <div class="developer-info">Xây dựng phát triển ứng dụng<br> <a href="mailto:nguyenanhthuan2@gmail.com">nguyenanhthuan2@gmail.com</a></div>
   </div>
 
- 
+  <!-- IFRAME ỨNG DỤNG -->
+  <iframe 
+    id="app-iframe"
+    src="https://script.google.com/macros/s/AKfycbwzAqJlekMj8mofDfia9z7fXK8ZQDs4Tzs0obu4HKV7ky2e2qOcl6YuECxc2_MaBOQwnQ/exec" 
+    allow="fullscreen"
+    loading="eager"
+    onload="hideLoader()">
+  </iframe>
 
-    
+
   </script>
 </body>
 </html>
