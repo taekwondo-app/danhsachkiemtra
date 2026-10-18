@@ -84,39 +84,6 @@
     onload="hideLoader()">
   </iframe>
 
-  <!-- NÚT CÀI ĐẶT (Chrome / Android / Edge) -->
-  <button id="install-banner">
-    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-    Cài đặt ứng dụng
-  </button>
-
-  <!-- HƯỚNG DẪN CÀI TRÊN iOS (Safari) -->
-  <div id="ios-guide">
-    <h3>Cài đặt ứng dụng trên iPhone / iPad</h3>
-    <p>Nhấn nút <strong>Chia sẻ</strong> → chọn <strong>Thêm vào Màn hình chính</strong></p>
-    <div class="steps">
-      <div class="step">
-        <div class="step-icon">⬆️</div>
-        <span>Chia sẻ</span>
-      </div>
-      <div class="step">
-        <div class="step-icon">➕</div>
-        <span>Thêm vào<br>Màn hình chính</span>
-      </div>
-    </div>
-    <button onclick="document.getElementById('ios-guide').style.display='none'">Đã hiểu</button>
-  </div>
-
-  <script>
-    // ========== ẨN LOADER ==========
-    function hideLoader() {
-      const loader = document.getElementById('loader');
-      if (loader) loader.classList.add('hidden');
-    }
-    setTimeout(hideLoader, 8000); // dự phòng
-
-   
-    
 
     
   </script>
